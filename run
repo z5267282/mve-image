@@ -1,0 +1,7 @@
+#!/bin/dash
+
+IMAGE_NAME=mve-image
+CONTAINER_PORT=5000
+LOCAL_PORT=3000
+
+docker run -p $LOCAL_PORT:$CONTAINER_PORT -t $IMAGE_NAME
