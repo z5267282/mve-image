@@ -8,5 +8,7 @@ SOURCE_FOLDER=/Users/sunny/Desktop/videos
 VOLUME_FOLDER=/mnt/videos
 
 docker run \
-    -p $LOCAL_PORT:$CONTAINER_PORT -t $IMAGE_NAME \
-    -v $SOURCE_FOLDER:$VOLUME_FOLDER
+    -v $SOURCE_FOLDER:$VOLUME_FOLDER \
+    -p $LOCAL_PORT:$CONTAINER_PORT \
+    # -t will give you pretty colours in terminal
+    $IMAGE_NAME
