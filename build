@@ -3,6 +3,4 @@
 IMAGE_NAME=mve-image
 
 # reset App.jsx
-# this is is run during the Docker build but this is needed when we locally test
-cp src/backup.jsx src/App.jsx
 docker build . -t $IMAGE_NAME

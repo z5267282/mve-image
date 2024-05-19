@@ -12,7 +12,7 @@ function App() {
   :
     // cannot autoplay unless video is muted as a <video tag limitation
     <div style={{width: "50vw"}}>
-      <video controls autoPlay muted src={`videos/${item}`}/>
+      <video controls autoPlay muted src={`/mnt/videos/${item}`}/>
     </div>
 }
 

@@ -10,5 +10,5 @@ VOLUME_FOLDER=/mnt/videos
 docker run \
     -v $SOURCE_FOLDER:$VOLUME_FOLDER \
     -p $LOCAL_PORT:$CONTAINER_PORT \
-    # -t will give you pretty colours in terminal
+    -t \
     $IMAGE_NAME
