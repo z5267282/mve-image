@@ -5,7 +5,7 @@ export default defineConfig({
     server: {
         fs: {
             strict: false,
-            allow: ["/mnt/videos"],
+            allow: ["/Users/sunny/Desktop/videos"],
         },
     },
 });
