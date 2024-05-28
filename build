@@ -1,6 +1,0 @@
-#!/bin/dash
-
-IMAGE_NAME=mve-image
-
-# reset App.jsx
-docker build . -t $IMAGE_NAME
