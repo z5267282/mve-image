@@ -4,6 +4,6 @@
 # but env is always in /usr/bin/env
 
 # softlink mounted files to public folder of server
-ln -s /mnt/videos videos
+[ -L videos ] || ln -s /mnt/videos videos
 
 npm run dev
