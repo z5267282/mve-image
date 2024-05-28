@@ -1,0 +1,9 @@
+version: '3'
+services:
+  mve:
+    image: mve-image
+    container_name: mve-container
+    ports:
+      - "3200:5200"
+    volumes:
+      - /Users/sunny/Desktop/videos:/mnt/videos
