@@ -1,8 +1,6 @@
-version: '3'
 services:
   mve:
-    image: mve-image
-    container_name: mve-container
+    build: .
     ports:
       - "3200:5200"
     volumes:
