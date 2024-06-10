@@ -2,6 +2,7 @@ services:
   mve:
     build: .
     ports:
-      - "3200:5200"
+      - "3200:4400"
     volumes:
-      - /Users/sunny/Desktop/videos:/mnt/videos
+      - /Users/sunny/Movies/sample-videos:/mnt/videos
+

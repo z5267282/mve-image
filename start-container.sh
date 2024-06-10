@@ -6,4 +6,5 @@
 # softlink mounted files to public folder of server
 [ -L videos ] || ln -s /mnt/videos videos
 
-npm run dev
+npm run start
+

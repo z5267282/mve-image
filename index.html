@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>video player</title>
+  <link rel="icon" type="image/png" href="favicon.ico">
+</head>
+<body>
+  <div id="parent">
+    <div id="waiting">Waiting to play a video</div>
+  </div>
+  <script>
+    const SERVER = "/listen";
+    const receive = new EventSource(SERVER);
+    receive.onerror = () => {
+      console.log(`disconnected to ${SERVER}`);
+      receive.close();
+    }
+    receive.onopen = () => console.log(`connected to ${SERVER}`);
+    receive.onmessage = (e) => {
+      const vid = `/videos/${e.data}`
+
+      const parent = document.getElementById("parent");
+      while (parent.lastElementChild) {
+        parent.removeChild(parent.lastElementChild);
+      }
+
+      const video = document.createElement("video");
+      video.src = vid;
+      video.controls = true;
+      parent.appendChild(video);
+    }
+  </script>
+</body>
+</html>
