@@ -1,4 +1,4 @@
-#!/usr/bin/env dash
+#!/bin/sh
 
 # note that dash is not always installed in /bin/dash
 # but env is always in /usr/bin/env
@@ -7,4 +7,3 @@
 [ -L videos ] || ln -s /mnt/videos videos
 
 npm run start
-

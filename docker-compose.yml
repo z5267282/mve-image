@@ -5,4 +5,3 @@ services:
       - "3200:4400"
     volumes:
       - /Users/sunny/Movies/sample-videos:/mnt/videos
-
