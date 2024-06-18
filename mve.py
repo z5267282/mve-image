@@ -1,5 +1,6 @@
 import json
 import os
+import pathlib
 import subprocess
 import sys
 
@@ -24,13 +25,26 @@ except FileNotFoundError:
         f"the config file {config_file.replace(configs_path, CONFIGS_KEY)} does not exist", file=sys.stderr)
     sys.exit(2)
 
-# TODO: read source
-# TODO: read destination
-# TODO: read edits
 
-# TODO: create os specific path via os.path.join
-# TODO: create linux pure path via Pathlib
+def create_abs_docker_path_pair(paths: list[str]) -> tuple[str, str]:
+    return os.path.join(*paths), pathlib.PurePosixPath(*paths)
 
-# TODO: convert MVE_CONFIGS to pure posix path, then export this to child
+
+source: list[str] = cfg["SOURCE"]
+source_abs, source_docker = create_abs_docker_path_pair(source)
+
+renames: list[str] = cfg["RENAMES"]
+renames_abs, renames_docker = create_abs_docker_path_pair(renames)
+
+edits: list[str] = cfg["DESTINATION"]
+edits_abs, edits_docker = create_abs_docker_path_pair(edits)
+
+configs_docker: str = os.path.join(
+    *pathlib.PurePosixPath(
+        *os.path.split(configs_path)
+    ).parts
+)
+
+os.environ[CONFIGS_KEY] = configs_docker
 
 # subprocess.run(["docker-compose", "up", "--build"])
