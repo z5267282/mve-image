@@ -3,6 +3,8 @@ services:
     build: .
     ports:
       - "3200:4400"
+    environment:
+      - MVE_CONFIGS=${MVE_CONFIGS}
     volumes:
       - /Users/sunny/Movies/sample-videos:/mnt/source
       - /Users/sunny/Movies/renames:/mnt/renames
