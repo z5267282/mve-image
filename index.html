@@ -17,6 +17,7 @@
       };
       receive.onopen = () => console.log(`connected to ${SERVER}`);
       receive.onmessage = (e) => {
+        // TODO: this should be a path from environment variable
         const vid = `/videos/${e.data}`;
 
         const parent = document.getElementById("parent");
