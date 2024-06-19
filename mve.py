@@ -8,6 +8,10 @@ import sys
 CONFIGS_KEY: str = 'MVE_CONFIGS'
 CONFIG_BASENAME: str = 'config.json'
 
+SOURCE_CONFIG_KEY = 'SOURCE'
+RENAMES_CONFIG_KEY = 'RENAMES'
+DESTINATION_CONFIG_KEY = 'DESTINATION'
+
 
 def main():
     parser: argparse.ArgumentParser = argparse.ArgumentParser()
@@ -30,9 +34,9 @@ def main():
             f'the config file ${config_file.replace(configs_path, CONFIGS_KEY)} does not exist', file=sys.stderr)
         sys.exit(2)
 
-    set_host_docker_path_pair(cfg, 'SOURCE')
-    set_host_docker_path_pair(cfg, 'RENAMES')
-    set_host_docker_path_pair(cfg, 'DESTINATION')
+    set_host_docker_path_pair(cfg, SOURCE_CONFIG_KEY)
+    set_host_docker_path_pair(cfg, RENAMES_CONFIG_KEY)
+    set_host_docker_path_pair(cfg, DESTINATION_CONFIG_KEY)
 
     configs_docker: str = pathlib.PurePosixPath(
         *os.path.split(configs_path)).as_posix()
@@ -44,8 +48,13 @@ def main():
 
 def set_host_docker_path_pair(cfg: dict, key: str):
     paths_list: list[str] = cfg[key]
-    os.environ[f'{key}_HOST'] = os.path.join(*paths_list)
-    os.environ[f'{key}_DOCKER'] = pathlib.PurePosixPath(*paths_list).as_posix()
+    host, docker = create_abs_docker_path_pair(paths_list)
+    os.environ[f'{key}_HOST'] = host
+    os.environ[f'{key}_DOCKER'] = docker
+
+
+def create_abs_docker_path_pair(paths: list[str]) -> tuple[str, str]:
+    return os.path.join(*paths), pathlib.PurePosixPath(*paths).as_posix()
 
 
 if __name__ == '__main__':
