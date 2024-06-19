@@ -2,6 +2,16 @@ services:
   mve:
     build: .
     ports:
-      - "3200:5200"
+      - "3200:4400"
+    environment:
+      - MVE_CONFIGS=${MVE_CONFIGS}
+      - SOURCE_DOCKER=${SOURCE_DOCKER}
+      - SOURCE_HOST=${SOURCE_HOST}
+      - RENAMES_DOCKER=${RENAMES_DOCKER}
+      - RENAMES_HOST=${RENAMES_HOST}
+      - DESTINATION_DOCKER=${DESTINATION_DOCKER}
+      - DESTINATION_HOST=${DESTINATION_HOST}
     volumes:
-      - /Users/sunny/Desktop/videos:/mnt/videos
+      - ${SOURCE_HOST}:${SOURCE_DOCKER}
+      - ${RENAMES_HOST}:${RENAMES_DOCKER}
+      - ${DESTINATION_HOST}:${DESTINATION_DOCKER}
