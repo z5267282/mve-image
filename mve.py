@@ -5,11 +5,11 @@ import pathlib
 import subprocess
 import sys
 
+CONFIGS_KEY: str = 'MVE_CONFIGS'
+CONFIG_BASENAME: str = 'config.json'
+
 
 def main():
-    CONFIGS_KEY: str = 'MVE_CONFIGS'
-
-    CONFIG_BASENAME: str = 'config.json'
 
     configs_path: str = os.environ.get(CONFIGS_KEY, None)
     if configs_path is None:
@@ -19,7 +19,7 @@ def main():
 
     parser: argparse.ArgumentParser = argparse.ArgumentParser()
     parser.add_argument('config', type=str)
-    args = parser.parse_args()
+    args: argparse.Namespace = parser.parse_args()
 
     config: str = args.config
 
