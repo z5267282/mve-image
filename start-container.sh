@@ -3,7 +3,9 @@
 # note that dash is not always installed in /bin/dash
 # but env is always in /usr/bin/env
 
-# TODO: SOFTLINK this from mve.py
-[ -L videos ] || ln -s /mnt/videos videos
+# to make it easy, we serve static files from the current folder
+# we just symlink the original source folder to the current directory
+
+[ -L videos ] || ln -s "$SOURCE_DOCKER" videos
 
 npm run start
