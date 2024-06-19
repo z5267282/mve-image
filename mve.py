@@ -10,18 +10,16 @@ CONFIG_BASENAME: str = 'config.json'
 
 
 def main():
+    parser: argparse.ArgumentParser = argparse.ArgumentParser()
+    parser.add_argument('config', type=str)
+    args: argparse.Namespace = parser.parse_args()
+    config: str = args.config
 
     configs_path: str = os.environ.get(CONFIGS_KEY, None)
     if configs_path is None:
         print(
             f'the environment variable ${CONFIGS_KEY} has not been set', file=sys.stderr)
         sys.exit(1)
-
-    parser: argparse.ArgumentParser = argparse.ArgumentParser()
-    parser.add_argument('config', type=str)
-    args: argparse.Namespace = parser.parse_args()
-
-    config: str = args.config
 
     config_file: str = os.path.join(configs_path, config, CONFIG_BASENAME)
     try:
