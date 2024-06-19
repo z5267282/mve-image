@@ -43,7 +43,10 @@ def main():
 
     os.environ[CONFIGS_KEY] = configs_docker
 
-    # subprocess.run(['docker-compose', 'up', '--build'])
+    os.environ[f'CONFIGS_HOST'] = configs_path
+    os.environ[f'CONFIGS_DOCKER'] = configs_docker
+
+    subprocess.run(['docker-compose', 'up', '--build'])
 
 
 def set_host_docker_path_pair(cfg: dict, key: str):
