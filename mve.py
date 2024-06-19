@@ -11,7 +11,7 @@ CONFIG_BASENAME: str = "config.json"
 configs_path: str = os.environ.get(CONFIGS_KEY, None)
 if configs_path is None:
     print(
-        f"the environment variable {CONFIGS_KEY} has not been set", file=sys.stderr)
+        f"the environment variable ${CONFIGS_KEY} has not been set", file=sys.stderr)
     sys.exit(1)
 
 config, = sys.argv[1:]
@@ -22,29 +22,26 @@ try:
         cfg: dict = json.load(c)
 except FileNotFoundError:
     print(
-        f"the config file {config_file.replace(configs_path, CONFIGS_KEY)} does not exist", file=sys.stderr)
+        f"the config file ${config_file.replace(configs_path, CONFIGS_KEY)} does not exist", file=sys.stderr)
     sys.exit(2)
 
 
-def create_abs_docker_path_pair(paths: list[str]) -> tuple[str, str]:
-    return os.path.join(*paths), pathlib.PurePosixPath(*paths)
+# def create_abs_docker_path_pair(paths: list[str]) -> tuple[str, str]:
+#     return os.path.join(*paths), pathlib.PurePosixPath(*paths)
+
+def set_host_docker_path_pair(key: str):
+    paths_list: list[str] = cfg[key]
+    os.environ[f"{key}_HOST"] = os.path.join(*paths_list)
+    os.environ[f"{key}_DOCKER"] = pathlib.PurePosixPath(*paths_list).as_posix()
 
 
-source: list[str] = cfg["SOURCE"]
-source_abs, source_docker = create_abs_docker_path_pair(source)
+set_host_docker_path_pair("SOURCE")
+set_host_docker_path_pair("RENAMES")
+set_host_docker_path_pair("DESTINATION")
 
-renames: list[str] = cfg["RENAMES"]
-renames_abs, renames_docker = create_abs_docker_path_pair(renames)
-
-edits: list[str] = cfg["DESTINATION"]
-edits_abs, edits_docker = create_abs_docker_path_pair(edits)
-
-configs_docker: str = os.path.join(
-    *pathlib.PurePosixPath(
-        *os.path.split(configs_path)
-    ).parts
-)
+configs_docker: str = pathlib.PurePosixPath(
+    *os.path.split(configs_path)).as_posix()
 
 os.environ[CONFIGS_KEY] = configs_docker
 
-# subprocess.run(["docker-compose", "up", "--build"])
+subprocess.run(["docker-compose", "up", "--build"])
